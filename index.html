@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> <!-- added -->
+  <title>Booking System</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Flatpickr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+  <!-- Spinner -->
+  <!-- NOTE: #spinner is shown/hidden by app.js during network activity -->
+  <div id="spinner" style="display:none;">Loading...</div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div> <!-- aria-live -->
+
+  <!-- Booking form: JS expects these element IDs to exist:
+       #customerName, #email, #cellphone, #branch, #date, #timeSlot, #bookBtn
+       Keep labels for accessibility; app.js uses textContent/textValue only. -->
+  <!-- Booking Section -->
+  <h2>Book an Appointment</h2>
+  <form id="bookingForm">
+    <label for="customerName" class="sr-only">Your Name</label>
+    <input type="text" id="customerName" placeholder="Your Name" required />
+
+    <label for="email" class="sr-only">Email</label>
+    <input type="email" id="email" placeholder="Email Address" required />
+
+    <label for="cellphone" class="sr-only">Cellphone</label>
+    <input type="tel" id="cellphone" placeholder="Cellphone Number" required pattern="^\d{10}$" inputmode="numeric" maxlength="10" />
+
+    <label for="branch" class="sr-only">Branch</label>
+    <select id="branch" required>
+      <option value="">Loading branches...</option>
+    </select>
+
+    <label for="date" class="sr-only">Date</label>
+    <input type="text" id="date" placeholder="Select a date" required />
+
+    <div class="dropdown-wrapper" style="position: relative;">
+      <label for="timeSlot" class="sr-only">Time Slot</label>
+      <select id="timeSlot" required disabled>
+        <option value="">Select a time slot</option>
+      </select>
+      <div id="dropdownSpinner" class="spinner small" style="display: none;"></div>
+    </div>
+
+    <button type="submit" id="bookBtn" disabled>Book</button>
+  </form>
+  <div id="response" aria-live="polite"></div> <!-- aria-live -->
+
+  <hr />
+  <!-- Admin gate UI -->
+  <!-- NOTE: admin controls are server-protected; app.js will show/hide #adminSection
+       after successful server-side login. Token stored in sessionStorage under 'adminToken'. -->
+  <div id="adminGate" style="margin-top:1em;">
+    <label for="adminPwd" class="sr-only">Admin Password</label>
+    <input type="password" id="adminPwd" placeholder="Admin password" />
+    <button type="button" id="adminLogin">Login as Admin</button>
+    <button type="button" id="adminLogout" style="display:none;">Logout</button>
+    <span id="adminMsg" style="margin-left:0.5em;color:#444"></span>
+  </div>
+
+  <hr />
+
+  <!-- Admin-only Section (hidden until login) -->
+  <!-- IMPORTANT: the appointments table and pagination inside this section are
+       only shown to admins. Do not duplicate these IDs elsewhere. -->
+  <div id="adminSection" style="display:none;">
+    <h2>Find Appointment by Confirmation Code</h2>
+    <form id="lookupForm">
+      <label for="confirmationCode" class="sr-only">Confirmation Code</label>
+      <input type="text" id="confirmationCode" placeholder="Enter Confirmation Code" required />
+      <button type="submit">Find</button>
+    </form>
+    <div id="lookupResult" aria-live="polite"></div>
+
+    <hr />
+
+    <h2>All Appointments</h2>
+    <input type="text" id="filterInput" placeholder="Filter by name or branch" />
+    <button type="button" id="loadAppointments">Load All</button>
+
+    <table id="appointmentsTable" style="display:none; margin-top: 1em;">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Branch</th>
+          <th>Date</th>
+          <th>Time Slot</th>
+          <th>Code</th>
+          <th>Email</th>
+          <th>Cellphone</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div id="pagination"></div>
+  </div>
+
+  <!-- Flatpickr JS -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="app.js"></script>
+</body>
+</html>

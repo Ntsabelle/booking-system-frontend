@@ -1,0 +1,137 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  max-width: 600px;
+}
+
+form {
+  margin-bottom: 15px;
+}
+
+input, select {
+  display: block;
+  margin: 8px 0;
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+input:invalid {
+  border-color: #dc3545;
+  background-color: #fff0f0;
+}
+
+input:valid {
+  border-color: #28a745;
+}
+
+button {
+  padding: 10px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#response, #lookupResult {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #dc3545;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 0.95em;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+thead {
+  background-color: #f8f9fa;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #eef6ff;
+}
+
+/* Pagination buttons */
+#pagination button {
+  margin: 4px 2px;
+  padding: 6px 12px;
+  border: 1px solid #007bff;
+  background-color: white;
+  color: #007bff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#pagination button:disabled {
+  background-color: #007bff;
+  color: white;
+  cursor: default;
+}
+
+/* Toast styling */
+.toast {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  background-color: #333;
+  color: #fff;
+  padding: 0.75em 1em;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 1000;
+  min-width: 200px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+.toast.success {
+  background-color: #28a745;
+}
+
+.toast.error {
+  background-color: #dc3545;
+}
+
+.spinner.small {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ccc;
+  border-top: 2px solid #333;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  position: absolute;
+  right: 10px;
+  top: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
